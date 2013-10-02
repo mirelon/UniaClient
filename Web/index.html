@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>TAXI</title>
+    <meta charset="utf-8"/>
+    <link href="css/mobiscroll.custom-2.6.2.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body onload="onLoad()">
+
+<div class='waitingDiv'>&nbsp;</div>   
+
+<script id="orders-tpl" type="text/x-handlebars-template">
+<div id="taxiHeader">
+    <div id="taxiText">ÚNIA TAXI</div>
+    <div id="taxiInfo"></div>
+    <button id="appExit" class="icon ico_end">&nbsp;</button>
+</div>
+<div class='footer'> 
+    <button id="newOrder" class="icon ico_order">&nbsp;</button>
+    <!--<button data-route="message" class="icon ico_message">&nbsp;</button>-->
+    <!--<button data-route="map" class="icon ico_map">&nbsp;</button>
+    <button data-route="settings" class="icon ico_settings">&nbsp;</button>-->
+</div>
+<div class="scroll"><div class='buttonlist orders-list'></div></div>
+</script>
+
+<script id="orders-li-tpl" type="text/x-handlebars-template">
+{{#.}}
+<div id="{{this.GUID}}" class="{{this.Status}}" data_GUID_Offer="{{this.GUID_Offer}}" data_StatusOffer="{{this.StatusOffer}}" data_Id="{{this.GUID}}" data_localId="{{this.localId}}"  data_Status="{{this.Status}}">
+<div class="icon down">&nbsp;</div>
+    <div class="content"><strong>{{this.OrderToDate}} {{this.StatusDescription}}</strong><br/> {{this.StartCity}} {{this.StartAddress}}<br/>{{this.EndCity}} {{this.EndAddress}}</div>
+<div class="icon up">&nbsp;</div></div>
+{{/.}}
+</script>
+
+<script id="order-tpl" type="text/x-handlebars-template">
+<div class='header'><button id="orderWaiting" class="waitingIcon">&nbsp;</button><button id="orderBack" class="icon ico_back">&nbsp;</button><button id="orderSave" class="icon ico_submit transparent">&nbsp;</button></div>
+<div id="orderForm" class='scrollBottom'></div>
+</script>
+
+<script id="orderForm-tpl" type="text/x-handlebars-template">
+<form id="orderForm-form">
+    <fieldset id="fTaxiCompany">
+    <legend>Taxislužba</legend>
+        <input type="hidden" id="TaxiCompanyLocalId" name="TaxiCompanyLocalId" value="{{this.TaxiCompanyLocalId}}"/>
+    <div class="radiolist">
+        {{#each this.companiesItems}}
+        <div data_localId="{{localId}}" class="radio{{#if selected}} selected{{/if}}">{{Title}} - {{Town}}</div>
+        {{/each}}
+    </div>
+    </fieldset>
+
+    <fieldset id="fOrderToDate">
+        <legend>Dátum a čas</legend>
+        <input id="OrderToDate" name="OrderToDate" type="hidden" value="{{this.OrderToDate}}" />
+        <button id="OrderToDateNow"> Teraz </button>
+    </fieldset>
+
+    <fieldset id="fStartAddress">
+    <legend>Odkiaľ</legend>
+    <div>
+        <label for="StartCity">Mesto</label>
+        <input id="StartCity" name="StartCity" type="text" value="{{this.StartCity}}" />
+    </div>
+    <div>
+        <label for="StartAddress">Adresa</label>
+        <input id="StartAddress" name="StartAddress" type="text" value="{{this.StartAddress}}" />
+    </div>
+  </fieldset>
+    <fieldset id="fEndAddress">
+    <legend>Kam</legend>
+    <div>
+        <label for="EndCity">Mesto</label>
+        <input name="EndCity" type="text" value="{{this.EndCity}}" />
+    </div>
+    <div>
+        <label for="EndAddress">Adresa</label>
+        <input name="EndAddress" type="text" value="{{this.EndAddress}}" />
+    </div>
+  </fieldset>
+  <fieldset id="fCustomerPhone">
+      <legend>Kontakt</legend>
+    <div>
+        <label for="CustomerPhone">Telefón</label>
+        <input id="CustomerPhone" name="CustomerPhone" type="tel" value="{{this.CustomerPhone}}" />
+    </div>
+  </fieldset>    
+    <fieldset id="fSpecialConditions">
+      <legend>Špeciálne požiadavky</legend>
+      <div>
+        <label for="Persons">Počet pasažierov</label>
+        <input id="Persons" name="Persons" type="number" value="{{this.Persons}}" />
+    </div>
+    <div>
+        <label for="SpecialConditions">Špeciálne požiadavky</label>
+        <input id="SpecialConditions" name="SpecialConditions" type="text" value="{{this.SpecialConditions}}" />
+    </div>
+     </fieldset>    
+    <fieldset id="fOrderSave">
+      <legend>Posielanie požiadavky</legend>
+      <div>
+          Čakajte prosím, na spracovanie Vašej objednávky
+    </div>
+    </fieldset>
+     <fieldset id="fOrderOk">
+      <legend>Požiadavka schválená</legend>
+      <div>
+    </div>
+</fieldset>    
+        <fieldset id="fOrderError">
+      <legend>Požiadavka nebola schválená</legend>
+      <div id="fOrderErrorOutput" class="error">
+    </div>
+</fieldset>    
+    <input id="Status" name="Status" type="hidden" value="{{this.Status}}" />
+    
+ <div id="OrderFormError" class="error">{{this.ErrorMessage}}</div>
+</form>
+</script>
+
+
+<script id="orderDetail-tpl" type="text/x-handlebars-template">
+<div class='header'><button id="orderDetailBack" class="icon ico_back">&nbsp;</button></div>
+<div id="orderDetailForm"></div>
+<div id="orderDetailMap" style="position:absolute;width:100%;height:100%;"></div>
+</script>
+
+ <script id="orderDetailForm-tpl" type="text/x-handlebars-template">
+    <div>
+        <strong>{{this.OrderToDate}} {{this.StatusDescription}}</strong>
+    </div>
+    <div>
+        <strong>Taxislužba:</strong>   {{this.TaxiCompanyDescription}}
+    </div>
+    <div>
+        <strong>Odkiaľ:</strong> {{this.StartCity}} {{this.StartAddress}}
+    </div>
+     {{#if this.EndCity}}
+    <div>
+        <strong>Kam:</strong> {{this.EndCity}} {{this.EndAddress}}
+    </div>
+     {{/if}}
+    <div>
+        <strong>Kontakt:</strong> {{this.CustomerPhone}}
+    </div>
+     {{#if this.Persons}}
+    <div>
+        <strong>Počet pasažierov:</strong> {{this.Persons}}
+    </div>
+     {{/if}}
+     {{#if this.SpecialConditions}}
+    <div>
+        <strong>Špeciálne požiadavky:</strong> {{this.SpecialConditions}}
+    </div>
+     {{/if}}
+     {{#if this.ErrorMessage}}
+    <div class="error">{{this.ErrorMessage}}</div>
+     {{/if}}
+</script>
+
+<script src="phonegap.js"></script>
+<script src="lib/json2.js"></script>    
+<script src="lib/jquery-1.8.2.min.js"></script>
+<script src="lib/handlebars.js"></script>
+<script src="lib/iscroll.js"></script>
+<script src="lib/mobiscroll.custom-2.6.2.min.js"></script>
+<script src="http://app.datastream.sk/smartapps/uniaclient.js"></script>
+<script src="Scripts/PositionService.js"></script>
+<script src="Scripts/Service.js"></script>
+<script src="Scripts/Map.js"></script>
+<script src="Scripts/OrdersView.js"></script>
+<script src="Scripts/OrderDetail.js"></script>
+<script src="Scripts/OrderView.js"></script>
+<script src="Scripts/main.js"></script>
+<script src="lib/language_sk.js"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false&libraries=places&callback=Map.apiOK"></script>
+
+</body>
+</html>
