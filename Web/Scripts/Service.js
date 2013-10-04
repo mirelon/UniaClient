@@ -6,6 +6,7 @@
     settings: {
         userId: undefined,
         userPhone: undefined,
+        userName: undefined,
         url: "http://localhost/disp",
         sessionId: undefined,
         enableHighAccuracy: true
@@ -106,6 +107,8 @@
         this.setOrderDescription(order);
         if (this.settings.userPhone)
             order.CustomerPhone = this.settings.userPhone;
+        if (this.settings.userName)
+            order.CustomerName = this.settings.userName;
 
         this.orders.Current = order;
         app.route("order");
@@ -206,7 +209,12 @@
 
         if (order.CustomerPhone && this.settings.userPhone != order.CustomerPhone) {
             this.settings.userPhone = order.CustomerPhone;
+
+            if (order.CustomerName && this.settings.userName != order.CustomerName) {
+                this.settings.userName = order.CustomerName;
+
             this.saveSettings();
+
         }
                 
         var company = this.findCompany(order.TaxiCompanyLocalId);

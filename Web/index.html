@@ -80,10 +80,14 @@
     </div>
   </fieldset>
   <fieldset id="fCustomerPhone">
-      <legend>Kontakt</legend>
+    <legend>Kontakt</legend>
     <div>
         <label for="CustomerPhone">Telefón</label>
         <input id="CustomerPhone" name="CustomerPhone" type="tel" value="{{this.CustomerPhone}}" />
+    </div>
+     <div>
+        <label for="CustomerName">Meno</label>
+        <input id="CustomerName" name="CustomerName" type="text" value="{{this.CustomerName}}" />
     </div>
   </fieldset>    
     <fieldset id="fSpecialConditions">
@@ -143,6 +147,9 @@
      {{/if}}
     <div>
         <strong>Kontakt:</strong> {{this.CustomerPhone}}
+    </div>
+    <div>
+        <strong>Meno:</strong> {{this.CustomerName}}
     </div>
      {{#if this.Persons}}
     <div>
