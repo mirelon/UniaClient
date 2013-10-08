@@ -72,11 +72,11 @@
     <legend>Kam</legend>
     <div>
         <label for="EndCity">Mesto</label>
-        <input name="EndCity" type="text" value="{{this.EndCity}}" />
+        <input id="EndCity" name="EndCity" type="text" onfocus="fillEndCity()" value="{{this.EndCity}}" />
     </div>
     <div>
         <label for="EndAddress">Adresa</label>
-        <input name="EndAddress" type="text" value="{{this.EndAddress}}" />
+        <input name="EndAddress" type="text"  value="{{this.EndAddress}}" />
     </div>
   </fieldset>
   <fieldset id="fCustomerPhone">

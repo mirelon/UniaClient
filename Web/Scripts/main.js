@@ -228,3 +228,14 @@ function onLoad() {
     }
     
 }
+
+function fillEndCity()
+{
+    var endc = document.getElementById("EndCity");
+    var startc = document.getElementById('StartCity');
+    if (startc == null) return;
+    if (endc == null || endc.value=='')
+        endc.value = startc.value;
+
+    
+}

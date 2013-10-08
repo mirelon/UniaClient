@@ -213,8 +213,9 @@
             if (order.CustomerName && this.settings.userName != order.CustomerName) {
                 this.settings.userName = order.CustomerName;
 
-            this.saveSettings();
+                this.saveSettings();
 
+            }
         }
                 
         var company = this.findCompany(order.TaxiCompanyLocalId);
