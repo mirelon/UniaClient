@@ -93,6 +93,10 @@
                     $("#OrderFormError").html("Zadajte Váš telefón");
                     return;
                 }
+                if (!$("#CustomerName").val()) {
+                    $("#OrderFormError").html("Zadajte Vaše meno");
+                    return;
+                }
                 this.order.step = "fSpecialConditions";
                 break;
             case "fSpecialConditions":

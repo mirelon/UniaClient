@@ -174,6 +174,10 @@
                         ret |= true;
                 }
 
+                //mhp spz
+                this.SPZ = order.SPZ;
+                this.TimeToFree = order.TimeToFree;
+
                 if (order.Latitude && order.Longitude && (this.TaxiLatitude != order.Latitude || this.TaxiLongitude != order.Longitude))
                 {
                     this.TaxiLatitude = order.Latitude;
