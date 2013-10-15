@@ -29,6 +29,8 @@
         $(".up").click(function () { self.changeOffer($(this).parent(), "Up"); });
         $(".down").click(function () { self.changeOffer($(this).parent(), "Down"); });
         $(".content").click(function () { self.detail($(this).parent()); });
+        $(".claim").click(function () { self.claim($(this).parent()); });
+        $(".rate").click(function () { self.rate($(this).parent()); });
         
         $('.orders-list').show();
     };
@@ -48,6 +50,20 @@
         var self = this;
         Service.detail(btn.attr("data_localId"));
     };
+
+    //ratung
+    this.rate = function (btn) {
+        var self = this;
+        Service.rate(btn.attr("data_localId"));
+    };
+
+    //reklamacia
+    this.claim = function (btn) {
+        var self = this;
+        Service.claim(btn.attr("data_localId"));
+    };
+
+
     this.onShow = function () {
         if (!navigator.app)
             $('#appExit').hide();

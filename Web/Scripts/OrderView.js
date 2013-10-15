@@ -162,6 +162,7 @@
         if (this.order.IsNew) {
             Map.geocode({ 'latLng': new google.maps.LatLng(PositionService.lat, PositionService.lng) }, function (a) {
                 self.order.StartCity = a.City;
+                self.order.EndCity = a.City;
                 self.order.StartAddress = a.Address;
                 self.order.geocodeStatus = a.Status;
                 self.order.StartLatitude = PositionService.lat;

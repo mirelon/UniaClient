@@ -130,6 +130,11 @@
                 case "orders": page = new OrdersView().render(); this.homePage = page; break;
                 case "detail": page = new OrderDetail().render(); break;
                 case "order": page = new OrderView().render(); break;
+                case "claim": page = new ClaimDetail().render(); break;
+                case "rate": page = new RateDetail().render(); break;
+                case "map": page = new MapView().render(); break;
+                case "help": page = new HelpView().render(); break;
+
                 default: this.showAlert("Undefined page:" + p, "ERROR"); return;
             }
             this.pages[p] = page;
@@ -213,11 +218,36 @@
         this.pages = {};
         this.registerEvents();
 
+        //check GPS:
+        app.checkGPS();
+
+
         Service.initialize(function () {
             self.home();
         });
+    };
+
+    checkGPS: function () {
+        //test GPS only if device 
+        if (!this.isDevice) return;
+        var show = false;
+        try {
+            navigator.geolocation.getCurrentPosition(null,
+                function () {
+                    show = true;
+                    app.showAlert("GPS nie je dostupne !", "Upozornenie")
+                }
+                , { enableHighAccuracy: true });
+        }
+        catch (err) {
+            if (!show) {
+                app.showAlert("GPS nie je dostupne!", "Upozornenie")
+            }
+        }
     }
-};
+}
+
+
 
 function onLoad() {
     app.isDevice = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);
