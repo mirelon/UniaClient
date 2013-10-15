@@ -225,7 +225,7 @@
         Service.initialize(function () {
             self.home();
         });
-    };
+    },
 
     checkGPS: function () {
         //test GPS only if device 
