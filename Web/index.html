@@ -33,12 +33,6 @@
 <div id="{{this.GUID}}" class="{{this.Status}}" data_GUID_Offer="{{this.GUID_Offer}}" data_StatusOffer="{{this.StatusOffer}}" data_Id="{{this.GUID}}" data_localId="{{this.localId}}"  data_Status="{{this.Status}}">
    <div class="icon down">&nbsp;</div>
    <div class="content"><strong>{{this.OrderToDate}} {{this.StatusDescription}}</strong><br/> {{this.StartCity}} {{this.StartAddress}}<br/>{{this.EndCity}} {{this.EndAddress}}</div>
-<!--    {{#if this.noclaim}}
-       <div class="icon claim">&nbsp;</div>
-    {{/if}}
-    {{#if this.norate}}
-        <div class="icon rate">&nbsp;</div>
-    {{/if}}-->
    <div class="icon up">&nbsp;</div>
 </div>
 {{/.}}
@@ -205,7 +199,11 @@
 
 
 <script id="orderDetail-tpl" type="text/x-handlebars-template">
-<div class='header'><button id="orderDetailBack" class="icon ico_back">&nbsp;</button></div>
+<div class='header'>
+    <button id="orderDetailBack" class="icon ico_back">&nbsp;</button>
+    <button id="orderDetailClaim" class="icon claim">&nbsp;</button>
+    <button id="orderDetailRate" class="icon rate">&nbsp;</button>
+</div>
 <div id="orderDetailForm"></div>
 <div id="orderDetailMap" style="position:absolute;width:100%;height:100%;"></div>
 </script>

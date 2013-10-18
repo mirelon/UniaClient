@@ -12,7 +12,7 @@
 
     this.onShow = function () {
         var self = this;
-        $("#claimback").click(function () { app.home(); });
+        $("#claimback").click(function () { app.route("detail"); });
         $("#claimDetailSave").click(function () { self.sendClaim(); });
 
         this.loadData();

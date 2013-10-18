@@ -15,7 +15,7 @@ var RateDetail = function () {
 
     this.onShow = function () {
         var self = this;
-        $("#rateback").click(function () { app.home(); });
+        $("#rateback").click(function () { app.route("detail"); });
         $("#rateDetailSave").click(function () { self.sendRate(); });
         this.loadData();
     };

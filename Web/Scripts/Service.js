@@ -80,39 +80,7 @@
             app.route("detail");
         }
     },
-    newOrder: function (id) {
-        var order = this.findOrder(id);
-        if (order) {
-            if (this.isOrderInProcess(order)) {
-                order = $.extend({}, order);
-                order.IsNew = true;
-            }
-            else
-                order.IsNew = false;
-            
-        }
-        else {
-            order = {};
-            order.IsNew = true;
-        }
-        order.GUID = undefined;
-        order.Status = "";
-        order.OrderSource = "Phone";
-        order.localId = "o_" + this.getUid();
-        order.step = "";
-        order.ErrorMessage = "";
-
-        order.Date = this.getDateForNweOrder();
-        order.OrderToDate = Service.formatDate(order.Date);
-        this.setOrderDescription(order);
-        if (this.settings.userPhone)
-            order.CustomerPhone = this.settings.userPhone;
-        if (this.settings.userName)
-            order.CustomerName = this.settings.userName;
-
-        this.orders.Current = order;
-        app.route("order");
-    },
+ 
 
     claim: function (id) {
         var order = this.findOrder(id);
@@ -161,6 +129,39 @@
         alert('help');
     },
 
+    newOrder: function (id) {
+        var order = this.findOrder(id);
+        if (order) {
+            if (this.isOrderInProcess(order)) {
+                order = $.extend({}, order);
+                order.IsNew = true;
+            }
+            else
+                order.IsNew = false;
+
+        }
+        else {
+            order = {};
+            order.IsNew = true;
+        }
+        order.GUID = undefined;
+        order.Status = "";
+        order.OrderSource = "Phone";
+        order.localId = "o_" + this.getUid();
+        order.step = "";
+        order.ErrorMessage = "";
+
+        order.Date = this.getDateForNweOrder();
+        order.OrderToDate = Service.formatDate(order.Date);
+        this.setOrderDescription(order);
+        if (this.settings.userPhone)
+            order.CustomerPhone = this.settings.userPhone;
+        if (this.settings.userName)
+            order.CustomerName = this.settings.userName;
+
+        this.orders.Current = order;
+        app.route("order");
+    },
 
     isOrderInProcess: function(order){
         return order && order.Status && (order.Status == "New" || order.Status == "Offered" || order.Status == "Reserved" || order.Status == "Waiting");
@@ -297,16 +298,39 @@
         });
     },
     getOrders: function () {
-        if (!this.orders)
-        {
+        if (!this.orders) {
             var s = window.localStorage.getItem("orders");
-            if (s)
+            if (s) {
                 this.orders = JSON.parse(s);
+                $.each(this.orders.Items, function () {
+
+                    if (this.rateValue == undefined)
+                        this.rateValue = 5;
+                    if (this.rateDescription == undefined)
+                        this.rateDescription = "";
+                    if (this.claimDescription == undefined)
+                        this.claimDescription = "";
+
+
+
+                    if (this.Status == "") {
+                        if (this.norate === undefined || this.norate === null)
+                            this.norate = true;
+                        if (this.noclaim === undefined || this.noclaim === null)
+                            this.noclaim = true;
+                    }
+                    else {
+                        this.norate = null;
+                        this.noclaim = null;
+                    }
+                });
+            }
             else
                 this.orders = { Items: [], Current: {} };
         }
         return this.orders;
     },
+
     saveOrders: function () {
         window.localStorage.setItem("orders", JSON.stringify(this.orders));
         this.orders.IsChanged = false;
