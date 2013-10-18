@@ -1,4 +1,9 @@
-﻿var OrdersView = function() {
+﻿var g_OrdersCheckSum = '';
+var g_OrdersLastRefresh = null;
+var g_OrdersRefreshCount = 0;
+
+
+var OrdersView = function () {
     this.index = 1;
     this.initialize = function() {
         this.el = $('<div/>');
@@ -23,6 +28,21 @@
             self.iscroll.refresh();
         else
             self.iscroll = new iScroll($('.scroll', self.el)[0], { hScrollbar: false, vScrollbar: false });
+
+        //check sum pre monzinu orders
+        c_OrdersCheckSum = '';
+        //nstavime datum refreshu
+        g_OrdersLastRefresh = new Date();
+
+        $.each(orders.Items, function () {
+            c_OrdersCheckSum += this.Status + this.Date;
+        });
+
+        //vyhodnotit checksum 
+        if (g_OrdersCheckSum != c_OrdersCheckSum) //zvukovy signal
+            app.playNew();
+        g_OrdersCheckSum = c_OrdersCheckSum;
+
 
         app.waiting(false);
 

@@ -6,11 +6,27 @@
     mediaAlert : null,
     pages: {},
     showAlert: function (message, title) {
+
+        var ierr = ErrorStorage.hasError(message);
+
+
         if (navigator.notification) {
-            navigator.notification.alert(message, null, title, 'OK');
-        } else {
-            alert(title ? (title + ": " + message) : message);
+            if (ierr == 0) {
+                ErrorStorage.addError(message);
+                navigator.notification.alert(message, alertDismissed(message), title, 'OK');
+            }
         }
+        else {
+
+            if (ierr == 0) {
+                ErrorStorage.addError(message);
+                alert(title ? (title + ": " + message) : message);
+                ErrorStorage.removeError(message);
+            }
+        }
+    },
+    alertDismissed: function (message) {
+        ErrorStorage.removeError(message);
     },
     showConfirm: function (message, title, okCallback, cancelCallback) {
         if (navigator.notification) {

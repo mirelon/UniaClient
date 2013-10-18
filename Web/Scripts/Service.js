@@ -113,6 +113,55 @@
         this.orders.Current = order;
         app.route("order");
     },
+
+    claim: function (id) {
+        var order = this.findOrder(id);
+        if (order) {
+            this.orders.Current = order;
+            app.route("claim");
+        }
+    },
+
+    sendclaim: function (data, callback) {
+        if (data) {
+            Service.callService("ClaimReport", data, function (d) {
+                Service.orders.Current.noclaim = false;
+                Service.orders.Current.claimDescription = data.Description;
+                Service.saveOrders();
+                if (callback)
+                    callback(d);
+            });
+        }
+    },
+
+    rate: function (id) {
+        var order = this.findOrder(id);
+        if (order) {
+            this.orders.Current = order;
+            app.route("rate");
+        }
+    },
+
+    sendrate: function (data, callback) {
+        if (data) {
+            Service.callService("rate", data, function (d) {
+                Service.orders.Current.norate = false;
+                Service.orders.Current.rateValue = data.RateValue;
+                Service.orders.Current.rateDescription = data.Description;
+                Service.saveOrders();
+                if (callback)
+                    callback(d);
+            });
+
+        }
+    },
+
+    showHelp: function (id) {
+
+        alert('help');
+    },
+
+
     isOrderInProcess: function(order){
         return order && order.Status && (order.Status == "New" || order.Status == "Offered" || order.Status == "Reserved" || order.Status == "Waiting");
     },
