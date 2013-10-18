@@ -22,7 +22,8 @@ var OrderDetail = function () {
 
     this.loadData = function () {
         this.order = Service.orders.Current;
-        if (this.order.noclaim && this.order.GUID)
+        ////mhp nefunguje
+        if (this.order.noclaim && this.order.GUID) 
             $("#orderDetailClaim").show();
         else
             $("#orderDetailClaim").hide();
