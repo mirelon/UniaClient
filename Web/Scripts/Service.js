@@ -3,6 +3,7 @@
     connectionError: undefined,
     orders: undefined,
     companies: undefined,
+    oneCompany: false,
     settings: {
         userId: undefined,
         userPhone: undefined,
@@ -387,14 +388,19 @@
                 this.saveCompanies();
             }
         }
+
+        this.oneCompany = this.companies.Items.length < 2;
+
         return this.companies;
     },
-    findCompany: function(id){
-        return this.companies.Items[0];
-        //var r = $.grep(this.companies.Items, function (o) { return o.localId == id; });
-        //if (r.length > 0)
-        //    return r[0];
-        //return undefined;
+    findCompany: function (id) {
+        if (this.companies.Items.length == 1)
+            return this.companies.Items[0];
+
+        var r = $.grep(this.companies.Items, function (o) { return o.localId == id; });
+        if (r.length > 0)
+            return r[0];
+        return undefined;
     },
     saveCompanies: function () {
         window.localStorage.setItem("companies", JSON.stringify(Service.companies));

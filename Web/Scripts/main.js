@@ -91,7 +91,6 @@
         //menubutton
         //searchbutton
         try {
-            //document.addEventListener("menubutton", function () { e.preventDefault(); app.settings(); }, false);
             document.addEventListener('backbutton', function (e) {
                 if (app.currentPage && app.currentPage.back)
                 {
@@ -244,22 +243,7 @@
     },
 
     checkGPS: function () {
-        //test GPS only if device 
         if (!this.isDevice) return;
-        var show = false;
-        //try {
-        //    navigator.geolocation.getCurrentPosition(null,
-        //        function () {
-        //            show = true;
-        //            app.showAlert("GPS nie je dostupne !", "Upozornenie")
-        //        }
-        //        , { enableHighAccuracy: true });
-        //}
-        //catch (err) {
-        //    if (!show) {
-        //        app.showAlert("GPS nie je dostupne!", "Upozornenie")
-        //    }
-        //}
     }
 }
 

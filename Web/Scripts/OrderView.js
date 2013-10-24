@@ -21,14 +21,18 @@
     };
     this.back = function () {
         switch (this.order.step) {
-            //case "fTaxiCompany":
-            //    app.home();
-            //    return;
-            case "fOrderToDate":
+            case "fTaxiCompany":
                 app.home();
                 return;
-                //this.order.step = "fTaxiCompany";
-                //break;
+            case "fOrderToDate":
+                if (Service.oneCompany) {
+                    app.home();
+                    return;
+                }
+                else {
+                    this.order.step = "fTaxiCompany";
+                    break;
+                }
             case "fStartAddress":
                 this.order.step = "fOrderToDate";
                 break;
@@ -60,20 +64,20 @@
         var self = this;
         $("#OrderFormError").empty();
         switch (this.order.step) {
-            //case "fTaxiCompany":
-            //    if (!$("#TaxiCompanyLocalId").val()) {
-            //        $("#OrderFormError").html("Vyberte taxislužbu");
-            //        return;
-            //    }
-            //    this.order.step = "fOrderToDate";
-            //    break;
+            case "fTaxiCompany":
+                if (!$("#TaxiCompanyLocalId").val()) {
+                    $("#OrderFormError").html("Vyberte taxislužbu");
+                    return;
+                }
+                this.order.step = "fOrderToDate";
+                break;
             case "fOrderToDate":
 
                 var d = Service.parseDate($("#OrderToDate").val());
                 var now = new Date();
                 if (d < now)
                 {
-                    $("#OrderFormError").html("Zvoľte vyššií dátum a čas");
+                    $("#OrderFormError").html("Zvoľte vyšší dátum a čas");
                     return;
                 }
                 this.order.step = "fStartAddress";
@@ -146,19 +150,20 @@
 
                 return;
                 break;
-            default://fTaxiCompany
-                this.order.step = "fOrderToDate";
+            default:
+                this.order.step = Service.oneCompany ? "fOrderToDate" : "fTaxiCompany";
                 break;
         }
 
         $("#orderForm fieldset").hide();
         $("#" + (this.order.step)).show();
     };
+
     this.loadForm = function () {
         var self = this;
         this.order = Service.orders.Current;
         this.order.geocodeStatus = false;
-
+        
         if (this.order.IsNew) {
             Map.geocode({ 'latLng': new google.maps.LatLng(PositionService.lat, PositionService.lng) }, function (a) {
                 self.order.StartCity = a.City;
@@ -172,9 +177,10 @@
         }
         else self.showForm();
     };
+
     this.showForm = function () {
             app.waiting(false);
-            this.order.step = this.order.step || "fOrderToDate"; //"fTaxiCompany";
+            this.order.step = this.order.step || (Service.oneCompany ? "fOrderToDate" : "fTaxiCompany");
             var self = this;
             if (Service.companies) {
                 this.order.companiesItems = Service.companies.Items;
