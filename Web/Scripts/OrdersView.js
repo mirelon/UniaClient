@@ -54,6 +54,7 @@ var OrdersView = function () {
     };
     this.changeOffer = function (btn, action) {
         var self = this;
+        btn.removeClass().addClass("refWaiting");
         if (action == "Up") {
             Service.newOrder(btn.attr("data_localId"));
         }

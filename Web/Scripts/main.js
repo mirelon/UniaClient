@@ -78,6 +78,7 @@
         app.log("app.registerEvents");
         var self = this;
 
+        $('body').on('touchmove', function (event) { event.preventDefault(); });
         $('body').on('click', '[data-route]', function (event) { app.route($(this).attr("data-route")); });
         $('body').on('click', '#newOrder', function (event) { Service.newOrder(); });
         if (navigator.app)
@@ -161,7 +162,7 @@
         var currentPageDest, self = this;
 
         if (!this.currentPage) {
-            $(page.el).attr('class', 'page stage-center');
+            //$(page.el).attr('class', 'page stage-center');
             $('body').append(page.el);
             this.currentPage = page;
             setTimeout(function () {
@@ -176,25 +177,27 @@
         if (this.currentPage === page)
             return;
 
-        if (page.index < this.currentPage.index) {
-            $(page.el).attr('class', 'page stage-left');
-            currentPageDest = "stage-right";
-        } else {
-            $(page.el).attr('class', 'page stage-right');
-            currentPageDest = "stage-left";
-        }
+        //if (page.index < this.currentPage.index) {
+        //    $(page.el).attr('class', 'page stage-left');
+        //    currentPageDest = "stage-right";
+        //} else {
+        //    $(page.el).attr('class', 'page stage-right');
+        //    currentPageDest = "stage-left";
+        //}
 
         $('body').append(page.el);
         
         setTimeout(function () {
-            $(self.currentPage.el).attr('class', 'page transition ' + currentPageDest);
-            $(page.el).attr('class', 'page stage-center transition');
+            $(self.currentPage.el).hide();
+            $(page.el).show();
+            //$(self.currentPage.el).attr('class', 'page transition ' + currentPageDest);
+            //$(page.el).attr('class', 'page stage-center transition');
             if (page.onShow)
                 page.onShow();
             else
                 self.waiting(true);
             self.currentPage = page;
-            $('.stage-right, .stage-left').remove();
+            //$('.stage-right, .stage-left').remove();
         });
     },
     scrollTop: function () {
