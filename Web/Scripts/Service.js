@@ -127,7 +127,6 @@
 
     showHelp: function (id) {
 
-        alert('help');
     },
 
     newOrder: function (id) {

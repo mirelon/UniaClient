@@ -112,7 +112,7 @@
     </div>
     </fieldset>
      <fieldset id="fOrderOk">
-      <legend>Požiadavka schválená</legend>
+      <legend>Požiadavka zaslaná</legend>
       <div>
     </div>
 </fieldset>    
@@ -124,6 +124,8 @@
     <input id="Status" name="Status" type="hidden" value="{{this.Status}}" />
     
  <div id="OrderFormError" class="error">{{this.ErrorMessage}}</div>
+ <div id="OrderFormDescription" class="error">{{this.Description}}</div>
+
 </form>
 </script>
 
@@ -183,7 +185,7 @@
         <strong>Tel:</strong> {{this.CustomerPhone}} <strong>Meno:</strong> {{this.CustomerName}}
     </div>
     <div>
-        <strong>Hodnotenie (1 hrozné - 10 výborné):</strong> <input id="rateValue" type="number" name="RateValue" value="{{this.rateValue}}" min="1" max="10" />
+        <strong>Hodnotenie (0 hrozné - 10 výborné):</strong> <input id="rateValue" type="number" name="RateValue" value="{{this.rateValue}}" min="1" max="10" />
     </div>
      <div>
         <strong>Poznámka:</strong> <input id="rateDescription" type="text" name="Description" value="{{this.rateDescription}}"  maxlength="500" />
@@ -216,7 +218,7 @@
         <strong>Taxislužba:</strong>   {{this.TaxiCompanyDescription}}
     </div>
     <div>
-        <strong>Taxi:</strong>   {{this.SPZ}} {{this.TimeToFree}} (min.)
+       <strong>Taxi:</strong>   {{this.SPZ}} {{this.Title}} {{this.TimeToFree}} (min.)
     </div>
     <div>
         <strong>Odkiaľ:</strong> {{this.StartCity}} {{this.StartAddress}}
@@ -226,9 +228,9 @@
         <strong>Kam:</strong> {{this.EndCity}} {{this.EndAddress}}
     </div>
      {{/if}}
-    <div>
+<!--    <div>
         <strong>Kontakt:</strong> {{this.CustomerPhone}}
-    </div>
+    </div>-->
      <div>
         <strong>Meno:</strong> {{this.CustomerName}}
     </div>
@@ -243,6 +245,12 @@
         <strong>Špeciálne požiadavky:</strong> {{this.SpecialConditions}}
     </div>
      {{/if}}
+
+     {{#if this.Description}}
+      <div class="error">{{this.Description}}</div>
+     {{/if}}
+
+
      {{#if this.ErrorMessage}}
     <div class="error">{{this.ErrorMessage}}</div>
      {{/if}}
