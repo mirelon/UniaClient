@@ -1,5 +1,6 @@
 ﻿var TaxiClient = {
-    ServiceUrl: "http://192.168.1.54/taxidFlexTest",
+    //ServiceUrl: "http://192.168.1.54/taxidFlexTest",
+    ServiceUrl: "http://62.168.68.178/taxidFlexTest",
     Companies: {
         Version: 1,
         Items:[
