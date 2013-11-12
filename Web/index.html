@@ -36,7 +36,7 @@
        <strong>{{this.OrderToDate}} {{this.StatusDescription}}</strong><br/> 
        {{this.StartCity}} {{this.StartAddress}}<br/>
        {{this.EndCity}} {{this.EndAddress}}<br/>
-       ŠPZ: {{this.SPZ}} , čas: {{this.TimeToFree}} min.
+       Auto: {{this.Title}} , čas: {{this.TimeToFree}} min.
       {{#if this.Description}}
         <div class="error">{{this.Description}}</div>
        {{/if}}
@@ -73,44 +73,44 @@
     <legend>Odkiaľ</legend>
     <div>
         <label for="StartCity">Mesto</label>
-        <input id="StartCity" name="StartCity" type="text" value="{{this.StartCity}}" />
+        <input id="StartCity" name="StartCity" type="text" maxlength="200" value="{{this.StartCity}}" />
     </div>
     <div>
         <label for="StartAddress">Adresa</label>
-        <input id="StartAddress" name="StartAddress" type="text" value="{{this.StartAddress}}" />
+        <input id="StartAddress" name="StartAddress" type="text"  maxlength="200" value="{{this.StartAddress}}" />
     </div>
   </fieldset>
     <fieldset id="fEndAddress">
     <legend>Kam</legend>
     <div>
         <label for="EndCity">Mesto</label>
-        <input id="EndCity" name="EndCity" type="text" onfocus="fillEndCity()" value="{{this.EndCity}}" />
+        <input id="EndCity" name="EndCity" type="text"  maxlength="200" onfocus="fillEndCity()" value="{{this.EndCity}}" />
     </div>
     <div>
         <label for="EndAddress">Adresa</label>
-        <input name="EndAddress" type="text" value="{{this.EndAddress}}" />
+        <input name="EndAddress" type="text"  maxlength="200" value="{{this.EndAddress}}" />
     </div>
   </fieldset>
   <fieldset id="fCustomerPhone">
       <legend>Kontakt</legend>
     <div>
         <label for="CustomerPhone">Telefón</label>
-        <input id="CustomerPhone" name="CustomerPhone" type="tel" value="{{this.CustomerPhone}}" />
+        <input id="CustomerPhone" name="CustomerPhone"  maxlength="30" type="tel" value="{{this.CustomerPhone}}" />
     </div>
      <div>
         <label for="CustomerName">Meno</label>
-        <input id="CustomerName" name="CustomerName" type="text" value="{{this.CustomerName}}" />
+        <input id="CustomerName" name="CustomerName"  maxlength="30" type="text" value="{{this.CustomerName}}" />
     </div>
   </fieldset>    
     <fieldset id="fSpecialConditions">
       <legend>Špeciálne požiadavky</legend>
       <div>
         <label for="Persons">Počet pasažierov</label>
-        <input id="Persons" name="Persons" type="number" value="{{this.Persons}}" />
+        <input id="Persons" name="Persons" type="number" min="1" max="10"  value="{{this.Persons}}" />
     </div>
     <div>
         <label for="SpecialConditions">Špeciálne požiadavky</label>
-        <input id="SpecialConditions" name="SpecialConditions" type="text" value="{{this.SpecialConditions}}" />
+        <input id="SpecialConditions" name="SpecialConditions" type="text"  maxlength="200" value="{{this.SpecialConditions}}" />
     </div>
      </fieldset>    
     <fieldset id="fOrderSave">
