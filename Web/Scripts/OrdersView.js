@@ -11,6 +11,7 @@ var OrdersView = function () {
 
     this.render = function () {
         this.el.html(OrdersView.template());
+        $("#taxiHeader").click(function () { app.refreshData(["orders", "transporters"]); });
         return this;
     };
 
@@ -76,7 +77,6 @@ var OrdersView = function () {
     this.onShow = function () {
         if (!navigator.app)
             $('#appExit').hide();
-        $("#taxiHeader").click(function () { app.refreshData(["orders", "transporters"]); });
         this.loadData();
     };
     this.initialize();

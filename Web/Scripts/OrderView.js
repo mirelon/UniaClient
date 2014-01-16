@@ -5,18 +5,15 @@
         this.el = $('<div/>');
     };
 
-    this.render = function() {
+    this.render = function () {
+        var self = this;
+        this.el.html(OrderView.template());
+        $("#orderSave").click(function () { if (!$(this).hasClass("transparent")) self.save(); });
+        $("#orderBack").click(function () { if (!$(this).hasClass("transparent")) self.back(); });
         return this;
     };
 
     this.onShow = function () {
-        var self = this;
-        this.el.html(OrderView.template());
-        $("#orderForm").hide();
-        app.waiting();
-        $("#orderSave").click(function () { if (!$(this).hasClass("transparent")) self.save(); });
-        $("#orderBack").click(function () { if (!$(this).hasClass("transparent")) self.back(); });
-                
         this.loadForm();
     };
     this.back = function () {
@@ -163,6 +160,9 @@
         var self = this;
         this.order = Service.orders.Current;
         this.order.geocodeStatus = false;
+
+        $("#orderForm").hide();
+        app.waiting();
         
         if (this.order.IsNew) {
             Map.geocode({ 'latLng': new google.maps.LatLng(PositionService.lat, PositionService.lng) }, function (a) {

@@ -6,16 +6,16 @@ var OrderDetail = function () {
     };
 
     this.render = function() {
-        this.el.html(OrderDetail.template());
-        return this;
-    };
-
-    this.onShow = function () {
         var self = this;
+        this.el.html(OrderDetail.template());
         Map.initialize($("#orderDetailMap"));
         $("#orderDetailBack").click(function () { app.home(); });
         $("#orderDetailClaim").click(function () { self.claim(); });
         $("#orderDetailRate").click(function () { self.rate(); });
+        return this;
+    };
+
+    this.onShow = function () {
         this.loadData();
 
     };
@@ -23,7 +23,7 @@ var OrderDetail = function () {
     this.loadData = function () {
         this.order = Service.orders.Current;
         ////mhp nefunguje
-        if (this.order.noclaim && this.order.GUID) 
+        if (this.order.noclaim && this.order.GUID)
             $("#orderDetailClaim").show();
         else
             $("#orderDetailClaim").hide();
@@ -42,7 +42,6 @@ var OrderDetail = function () {
                 Map.mapDiv.html("Mapy sú nedostupné");
 
             }
-
     };
 
     //ratung

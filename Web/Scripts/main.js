@@ -9,7 +9,6 @@
 
         var ierr = ErrorStorage.hasError(message);
 
-
         if (navigator.notification) {
             if (ierr == 0) {
                 ErrorStorage.addError(message);
@@ -143,17 +142,19 @@
         var page = this.pages[p];
         if (!page) {
             switch (p) {
-                case "orders": page = new OrdersView().render(); this.homePage = page; break;
-                case "detail": page = new OrderDetail().render(); break;
-                case "order": page = new OrderView().render(); break;
-                case "claim": page = new ClaimDetail().render(); break;
-                case "rate": page = new RateDetail().render(); break;
-                case "map": page = new MapView().render(); break;
-                case "help": page = new HelpView().render(); break;
+                case "orders": page = new OrdersView(); this.homePage = page; break;
+                case "detail": page = new OrderDetail(); break;
+                case "order": page = new OrderView(); break;
+                case "claim": page = new ClaimDetail(); break;
+                case "rate": page = new RateDetail(); break;
+                case "map": page = new MapView(); break;
+                case "help": page = new HelpView(); break;
 
                 default: this.showAlert("Undefined page:" + p, "ERROR"); return;
             }
             this.pages[p] = page;
+            $('body').append(page.el);
+            page.render();
         }
         this.currentPageName = p;
         this.slidePage(page);
@@ -162,8 +163,6 @@
         var currentPageDest, self = this;
 
         if (!this.currentPage) {
-            //$(page.el).attr('class', 'page stage-center');
-            $('body').append(page.el);
             this.currentPage = page;
             setTimeout(function () {
                 if (page.onShow) 
@@ -177,27 +176,14 @@
         if (this.currentPage === page)
             return;
 
-        //if (page.index < this.currentPage.index) {
-        //    $(page.el).attr('class', 'page stage-left');
-        //    currentPageDest = "stage-right";
-        //} else {
-        //    $(page.el).attr('class', 'page stage-right');
-        //    currentPageDest = "stage-left";
-        //}
-
-        $('body').append(page.el);
-        
         setTimeout(function () {
             $(self.currentPage.el).hide();
             $(page.el).show();
-            //$(self.currentPage.el).attr('class', 'page transition ' + currentPageDest);
-            //$(page.el).attr('class', 'page stage-center transition');
             if (page.onShow)
                 page.onShow();
             else
                 self.waiting(true);
             self.currentPage = page;
-            //$('.stage-right, .stage-left').remove();
         });
     },
     scrollTop: function () {
@@ -249,8 +235,6 @@
         if (!this.isDevice) return;
     }
 }
-
-
 
 function onLoad() {
     app.isDevice = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);

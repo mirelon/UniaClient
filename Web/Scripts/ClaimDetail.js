@@ -6,15 +6,14 @@
     };
 
     this.render = function() {
+        var self = this;
         this.el.html(ClaimDetail.template());
+        $("#claimback").click(function () { app.route("detail"); });
+        $("#claimDetailSave").click(function () { self.sendClaim(); });
         return this;
     };
 
     this.onShow = function () {
-        var self = this;
-        $("#claimback").click(function () { app.route("detail"); });
-        $("#claimDetailSave").click(function () { self.sendClaim(); });
-
         this.loadData();
     };
 
@@ -31,15 +30,8 @@
         data.GUID_TransporterOrder = this.order.GUID;
         data.UserPhone = this.order.CustomerPhone;
         data.Status = "New";
-
-
         Service.sendclaim(data, function () { app.home(); });
-        
     }
-
- 
-
-    
 
     this.initialize();
 }
