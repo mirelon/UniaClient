@@ -38,17 +38,6 @@ var RateDetail = function () {
         data.GUID_Entity = this.order.GUID;
         data.Title_Entity = "TransporterOrder";
 
-        //var send = function () {
-        //    Service.sendrate(d, function (data) {
-
-        //        alert(order.rateValue + " " + order.rateDescription);
-
-        //    }, function (data) {
-
-        //        alert("error");
-        //    });
-        //}
-
         Service.sendrate(data, function () { app.home(); });
 
 

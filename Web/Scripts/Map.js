@@ -89,7 +89,6 @@
         return address;
     },
     setMap: function (lat, lng, tlat, tlng) {
-        //try {
             if (Map.apiIsOk) {
                 Map.point = new google.maps.LatLng(lat, lng);
 
@@ -135,9 +134,5 @@
             else {
                 //Map.message("Mapy sú nedostupné", true);
             }
-        //}
-        //catch (err) {
-            
-        //}
     }
 };

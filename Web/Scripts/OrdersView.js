@@ -71,9 +71,6 @@ var OrdersView = function () {
         Service.detail(btn.attr("data_localId"));
     };
 
-
-
-
     this.onShow = function () {
         if (!navigator.app)
             $('#appExit').hide();

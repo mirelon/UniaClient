@@ -107,8 +107,7 @@
                 $("#orderWaiting").show();
                 $("#orderForm fieldset").hide();
                 $("#" + (this.order.step)).show();
-                //$("#orderForm").hide();
-                //app.waiting();
+
                 var d = $("#orderForm-form").serializeArray();
 
                 var addressChanged = false;
@@ -132,7 +131,6 @@
                         $("#" + (self.order.step)).show();
                         $("#orderWaiting").hide();
                         $("#orderBack").show();
-                        //$("#orderSave").show();
                     });
                 }
 
@@ -197,7 +195,7 @@
             });
 
             var now = new Date();
-            var minDate = now;// new Date(now.getFullYear(),now.getMonth(),now.getDate());
+            var minDate = now;// 
             var maxDate = new Date();
             maxDate.setHours(maxDate.getHours() + 24);
             

@@ -8,7 +8,7 @@
         userId: undefined,
         userPhone: undefined,
         userName: undefined,
-        url: "http://localhost/disp",
+        url: undefined,
         sessionId: undefined,
         enableHighAccuracy: true
     },
@@ -466,7 +466,6 @@
                 .fail(function () {
                     app.log("Service.callService - " + Service.connectionError + ": " + this.url);
                     app.waiting(false);
-                    //Service.connectionError = "Spojenie sa nepodarilo " + this.url;
                     if (errorDelegate)
                         errorDelegate({ ErrorMessage: Service.connectionError });
                     else

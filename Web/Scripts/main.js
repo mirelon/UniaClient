@@ -82,14 +82,6 @@
         $('body').on('click', '#newOrder', function (event) { Service.newOrder(); });
         if (navigator.app)
             $('body').on('click', '#appExit', function () { app.end(function () { app.home(); }); });
-        //deviceready
-        //pause
-        //resume
-        //online
-        //offline
-        //backbutton
-        //menubutton
-        //searchbutton
         try {
             document.addEventListener('backbutton', function (e) {
                 if (app.currentPage && app.currentPage.back)
@@ -105,14 +97,6 @@
             document.addEventListener('resume', function () { app.info("Resume"); }, false);
             document.addEventListener("offline", function () { app.info("Offline"); }, false);
             document.addEventListener("online", function () { app.info("Online"); }, false);
-            //document.addEventListener("unload", function () {
-            //    app.info("Unload");
-            //    cordova.require('cordova/plugin/powermanagement').release(
-            //                function () { app.info("powermanagement Release"); },
-            //                function () { app.info("powermanagement Error Release"); }
-            //        );
-            //}, false);
-
         } catch (err) {
             app.log(err);
         }

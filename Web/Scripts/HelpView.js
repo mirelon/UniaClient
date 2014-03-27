@@ -5,7 +5,6 @@
         this.el = $('<div/>');
         var header = $('<div class="header"><button data-route="orders" class="icon ico_back">&nbsp;</button></div>').appendTo(this.el);
         this.helpContent = $('<div id="helpcontent" />').addClass("scrollBottom").appendTo(this.el);
-        //$('<div/>').append(this.helpContent).appendTo(this.el);
     };
 
     this.render = function () {

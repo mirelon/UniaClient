@@ -6,7 +6,6 @@
     };
 
     this.render = function () {
-        //this.el.html(MapView.template(store));
         ViewMap.initialize(this.el);
         return this;
     };
@@ -17,8 +16,6 @@
 
     this.initialize();
 }
-
-//MapView.template = Handlebars.compile($("#map-tpl").html());
 
 var ViewMap = {
     date: null,
@@ -48,12 +45,6 @@ var ViewMap = {
         var d = 'Latitude: ' + position.coords.latitude + '<br />' +
        'Longitude: ' + position.coords.longitude + '<br />' +
         "Presnosť pozície: " + position.coords.accuracy + "m";
-        //'Altitude: ' + position.coords.altitude + '<br />' +
-        //'Accuracy: ' + position.coords.accuracy + '<br />' +
-        //'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '<br />' +
-        //'Heading: ' + position.coords.heading + '<br />' +
-        //'Speed: ' + Math.ceil(position.coords.speed * 3.6) + ' km/h<br />';// +
-        //'Timestamp: ' + new Date(position.timestamp) + '<br />';
         ViewMap.mapOut.html(d);
         ViewMap.setMap(position);
         PositionService.lat = position.coords.latitude;
